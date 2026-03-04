@@ -21,10 +21,9 @@ public class mainmenu {
 
   public static void main(String[] args) {
     int option = menu();
+    int auth = 0;
     if (option == 1) {
-      auth.register();
-    } else if (option == 2) {
-      auth.login();
+      account.login();
     }
   }
 }
