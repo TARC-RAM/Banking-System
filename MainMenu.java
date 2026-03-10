@@ -1,30 +1,27 @@
 import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
 
-public class mainmenu {
+public class MainMenu {
   static Scanner scnr = new Scanner(System.in);
 
-  public static int menu() {
+  public static int dashboard() {
+    int action = 0;
+
     System.out.println("Welcome to TAR Digital Banking!");
     System.out.println("Enter Option number to decide an action!");
     System.out.println("Option (1) Create an account");
     System.out.println("Option (2) Login");
     System.out.printf("Enter your Option: ");
-    int option = scnr.nextInt();
-    scnr.nextLine();
-    return option;
+    action = scnr.nextInt();
+    return action;
+
   }
 
   public static void main(String[] args) {
-    int option = menu();
-    if (option == 1) {
-      auth.register();
-    } else if (option == 2) {
-      auth.login();
+    int action = MainMenu.dashboard();
+    System.out.println(action);
+
+    if (action == 1) {
+      Auth.register();
     }
   }
 }
