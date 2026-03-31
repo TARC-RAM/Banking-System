@@ -18,10 +18,10 @@ public class MainMenu {
 
   public static void main(String[] args) {
     int action = MainMenu.dashboard();
-    System.out.println(action);
 
     if (action == 1) {
-      Auth.register();
+      Register reg = new Register();
+      reg.collectInput();
     }
   }
 }
