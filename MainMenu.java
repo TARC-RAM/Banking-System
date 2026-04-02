@@ -22,6 +22,10 @@ public class MainMenu {
     if (action == 1) {
       Register reg = new Register();
       reg.collectInput();
+    } else if (action == 2) {
+      Login log = new Login();
+      log.getLogin();
+      log.confirmLogin();
     }
   }
 }

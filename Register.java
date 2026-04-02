@@ -14,23 +14,12 @@ public class Register {
   private String password;
   ArrayList<UserCredentials> users = new ArrayList<>();
   Scanner scanner = new Scanner(System.in);
-  Gson gson = new Gson();
-
-  public ArrayList<UserCredentials> loaduser() {
-    try (FileReader reader = new FileReader("users.json")) {
-      Type type = new TypeToken<ArrayList<UserCredentials>>() {
-      }.getType();
-      return gson.fromJson(reader, type);
-    } catch (IOException e) {
-      System.out.println("An error has occured");
-    }
-    return new ArrayList<>();
-  }
+  FileManager fm = new FileManager();
 
   public void collectInput() {
     UserCredentials cred = new UserCredentials();
     RegisterValidation rv = new RegisterValidation();
-    users = loaduser();
+    users = fm.loaduser();
     boolean validinput = true;
 
     System.out.print("Enter your username: ");
@@ -59,14 +48,8 @@ public class Register {
     }
     if (validinput) {
       users.add(cred);
-      String credJson = gson.toJson(users); // convert the data in the variable to json so it can be stored
 
-      try (FileWriter writer = new FileWriter("users.json")) {
-        writer.write(credJson);
-        System.out.println("User registered successfully");
-      } catch (IOException e) {
-        System.out.println("An error occured while writing to the file: " + e.getMessage());
-      }
+      fm.saveUsers(users);
     }
   }
 
