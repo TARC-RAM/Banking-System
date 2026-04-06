@@ -15,6 +15,7 @@ public class Login {
   FileManager fm = new FileManager();
   Scanner scanner = new Scanner(System.in);
   ArrayList<UserCredentials> users = new ArrayList<>();
+  FirstTimeSetup fts = new FirstTimeSetup();
 
   public void getLogin() {
     System.out.print("Enter your username: ");
@@ -30,7 +31,8 @@ public class Login {
       if (username.equals(user.getUsername()) && (password.equals(user.getPassword()))) {
         found = true;
         System.out.println("Login Successfull!");
-        break; // stop the loop once a match is found
+        fts.setup(user);
+        break;
       }
     }
     if (found == false) {

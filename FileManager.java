@@ -32,4 +32,25 @@ public class FileManager {
       System.out.println("An error occured while writing to the file: " + e.getMessage());
     }
   }
+
+  public ArrayList<AccountDetails> loadAccounts() {
+    try (FileReader reader = new FileReader("accounts.json")) {
+      Type type = new TypeToken<ArrayList<AccountDetails>>() {
+      }.getType();
+      return gson.fromJson(reader, type);
+    } catch (IOException e) {
+      System.out.println("An error has occured");
+    }
+    return new ArrayList<>();
+  }
+
+  public void saveAccounts(ArrayList<AccountDetails> users) {
+    String credJson = gson.toJson(users);
+    try (FileWriter writer = new FileWriter("accounts.json")) {
+      writer.write(credJson);
+      System.out.println("Account registered successfully");
+    } catch (IOException e) {
+      System.out.println("An error occured while writing to the file: " + e.getMessage());
+    }
+  }
 }

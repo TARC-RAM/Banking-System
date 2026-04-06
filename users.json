@@ -1,1 +1,7 @@
-[{},{"username":"testtest","password":"testtest"},{"username":"iloveapples","password":"mynameischad"}]
+[
+  {
+    "username": "testtest",
+    "password": "testtest",
+    "uuid": "fa0ae3ac-3a09-4d89-8d63-78bf4938a170"
+  }
+]

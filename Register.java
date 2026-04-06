@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.io.File; // Import the File class
 import java.io.FileNotFoundException; // Import this class to handle errors
+import java.util.UUID; //Generate a UUID for the user
 
 public class Register {
   private String username;
@@ -47,8 +48,10 @@ public class Register {
       cred.setPassword(password); // send to getter
     }
     if (validinput) {
+      String uuid = UUID.randomUUID().toString(); // use toString to convert the UUID object
+                                                  // into a readable string to send to getter
+      cred.setUUID(uuid);
       users.add(cred);
-
       fm.saveUsers(users);
     }
   }

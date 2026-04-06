@@ -1,6 +1,7 @@
 public class UserCredentials { // this is the getter setter methods to access the private strings
   private String username;
   private String password;
+  private String uuid;
 
   public String getUsername() { // send the username to setter
     return username;
@@ -16,5 +17,13 @@ public class UserCredentials { // this is the getter setter methods to access th
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public String getUUID() {
+    return uuid;
+  }
+
+  public void setUUID(String uuid) {
+    this.uuid = uuid;
   }
 }
