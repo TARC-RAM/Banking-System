@@ -17,26 +17,23 @@ public class Login {
   ArrayList<UserCredentials> users = new ArrayList<>();
   FirstTimeSetup fts = new FirstTimeSetup();
 
-  public void getLogin() {
-    System.out.print("Enter your username: ");
-    username = scanner.nextLine();
-    System.out.print("Enter your password: ");
-    password = scanner.nextLine();
-  }
-
-  public void confirmLogin() {
+  public void loginLoop() {
     users = fm.loaduser();
-    boolean found = false;
-    for (UserCredentials user : users) {
-      if (username.equals(user.getUsername()) && (password.equals(user.getPassword()))) {
-        found = true;
-        System.out.println("Login Successfull!");
-        fts.setup(user);
-        break;
+
+    while (true) {
+      System.out.print("Enter your username: ");
+      username = scanner.nextLine();
+      System.out.print("Enter your password: ");
+      password = scanner.nextLine();
+
+      for (UserCredentials user : users) {
+        if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
+          System.out.println("Login successful!");
+          fts.setup(user);
+          return;
+        }
       }
-    }
-    if (found == false) {
-      System.out.println("Username or Password is wrong");
+      System.out.println("Username or password is wrong.");
     }
   }
 }

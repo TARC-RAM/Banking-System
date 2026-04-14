@@ -6,6 +6,8 @@ public class AccountDetails {
   private String mykad;
   private char gender;
   private String username;
+  private String accountNumber;
+  private String accountType;
 
   public String getUUID() {
     return uuid;
@@ -61,6 +63,22 @@ public class AccountDetails {
 
   public void setUsername(String username) {
     this.username = username;
+  }
+
+  public String getAccountNumber() {
+    return accountNumber;
+  }
+
+  public void setAccountNumber(String accountNumber) {
+    this.accountNumber = accountNumber;
+  }
+
+  public String getAccountType() {
+    return accountType;
+  }
+
+  public void setAccountType(String accountType) {
+    this.accountType = accountType;
   }
 
 }

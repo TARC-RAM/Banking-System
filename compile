@@ -1,2 +1,5 @@
-javac -cp gson-2.11.0.jar:. MainMenu.java Register.java UserCredentials.java
-java -cp gson-2.11.0.jar:. MainMenu
+#!/usr/bin/env bash
+set -e
+
+javac -cp gson-2.11.0.jar:. *.java WongYiHoe/*.java
+java -cp gson-2.11.0.jar:.:WongYiHoe MainMenu

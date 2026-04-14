@@ -21,39 +21,43 @@ public class Register {
     UserCredentials cred = new UserCredentials();
     RegisterValidation rv = new RegisterValidation();
     users = fm.loaduser();
-    boolean validinput = true;
 
-    System.out.print("Enter your username: ");
-    username = scanner.nextLine();
-    if (rv.hasSpecialChars(username) == false || rv.hasWhiteSpace(username) == false) {
-      System.out.println("Username must be 'A-Z' and '0-9' only.");
-      validinput = false;
-    } else if (rv.meetsMinLength(username) == false) {
-      System.out.println("Username must also be more than 8 characters");
-    } else if (isDuplicateUsername(username) == true) {
-      System.out.println("User already exists");
-      validinput = false;
-    } else {
-      cred.setUsername(username); // send to getter
+    // Loop until valid username
+    while (true) {
+      System.out.print("Enter your username: ");
+      username = scanner.nextLine();
+      if (rv.hasSpecialChars(username) == false || rv.hasWhiteSpace(username) == false) {
+        System.out.println("Username must be 'A-Z' and '0-9' only.");
+      } else if (rv.meetsMinLength(username) == false) {
+        System.out.println("Username must be more than 8 characters.");
+      } else if (isDuplicateUsername(username) == true) {
+        System.out.println("User already exists.");
+      } else {
+        cred.setUsername(username);
+        break;
+      }
     }
 
-    System.out.print("Enter your passsword: ");
-    password = scanner.nextLine();
-    if (rv.hasSpecialChars(password) == false || rv.hasWhiteSpace(password) == false) {
-      System.out.println("Password must be 'A-Z' and '0-9' only.");
-      validinput = false;
-    } else if (rv.meetsMinLength(password) == false) {
-      System.out.println("Password must also be more than 8 characters");
-    } else {
-      cred.setPassword(password); // send to getter
+    // Loop until valid password
+    while (true) {
+      System.out.print("Enter your password: ");
+      password = scanner.nextLine();
+      if (rv.hasSpecialChars(password) == false || rv.hasWhiteSpace(password) == false) {
+        System.out.println("Password must be 'A-Z' and '0-9' only.");
+      } else if (rv.meetsMinLength(password) == false) {
+        System.out.println("Password must be more than 8 characters.");
+      } else {
+        cred.setPassword(password);
+        break;
+      }
     }
-    if (validinput) {
-      String uuid = UUID.randomUUID().toString(); // use toString to convert the UUID object
-                                                  // into a readable string to send to getter
-      cred.setUUID(uuid);
-      users.add(cred);
-      fm.saveUsers(users);
-    }
+
+    // At this point both username and password are valid
+    String uuid = UUID.randomUUID().toString();
+    cred.setUUID(uuid);
+    users.add(cred);
+    fm.saveUsers(users);
+    System.out.println("Registration successful!");
   }
 
   public boolean isDuplicateUsername(String input) {

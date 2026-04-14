@@ -53,4 +53,25 @@ public class FileManager {
       System.out.println("An error occured while writing to the file: " + e.getMessage());
     }
   }
+
+  public ArrayList<BankAccountRecord> loadBankAccounts() {
+    try (FileReader reader = new FileReader("bank_accounts.json")) {
+      Type type = new TypeToken<ArrayList<BankAccountRecord>>() {
+      }.getType();
+      ArrayList<BankAccountRecord> records = gson.fromJson(reader, type);
+      return records == null ? new ArrayList<>() : records;
+    } catch (IOException e) {
+      return new ArrayList<>();
+    }
+  }
+
+  public void saveBankAccounts(ArrayList<BankAccountRecord> accounts) {
+    String accountJson = gson.toJson(accounts);
+    try (FileWriter writer = new FileWriter("bank_accounts.json")) {
+      writer.write(accountJson);
+      System.out.println("Bank account data saved successfully");
+    } catch (IOException e) {
+      System.out.println("An error occured while writing to the file: " + e.getMessage());
+    }
+  }
 }

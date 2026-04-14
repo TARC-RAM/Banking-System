@@ -4,28 +4,41 @@ public class MainMenu {
   static Scanner scnr = new Scanner(System.in);
 
   public static int dashboard() {
-    int action = 0;
+    System.out.println("\n╔════════════════════════════════════════════╗");
+    System.out.println("║            TAR DIGITAL BANKING             ║");
+    System.out.println("╠════════════════════════════════════════════╣");
+    System.out.println("║  [1] Create an account                     ║");
+    System.out.println("║  [2] Login                                 ║");
+    System.out.println("║  [0] Exit                                  ║");
+    System.out.println("╚════════════════════════════════════════════╝");
 
-    System.out.println("Welcome to TAR Digital Banking!");
-    System.out.println("Enter Option number to decide an action!");
-    System.out.println("Option (1) Create an account");
-    System.out.println("Option (2) Login");
-    System.out.printf("Enter your Option: ");
-    action = scnr.nextInt();
-    return action;
-
+    while (true) {
+      System.out.print("Please enter your option: ");
+      String input = scnr.nextLine().trim();
+      try {
+        return Integer.parseInt(input);
+      } catch (NumberFormatException e) {
+        System.out.println("Invalid input. Please enter a number.");
+      }
+    }
   }
 
   public static void main(String[] args) {
-    int action = MainMenu.dashboard();
+    while (true) {
+      int action = MainMenu.dashboard();
 
-    if (action == 1) {
-      Register reg = new Register();
-      reg.collectInput();
-    } else if (action == 2) {
-      Login log = new Login();
-      log.getLogin();
-      log.confirmLogin();
+      if (action == 1) {
+        Register reg = new Register();
+        reg.collectInput();
+      } else if (action == 2) {
+        Login log = new Login();
+        log.loginLoop();
+      } else if (action == 0) {
+        System.out.println("Goodbye!");
+        break;
+      } else {
+        System.out.println("Invalid option. Please choose 1, 2, or 0.");
+      }
     }
   }
 }
