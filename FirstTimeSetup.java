@@ -59,11 +59,16 @@ public class FirstTimeSetup {
     profile.setUsername(user.getUsername());
     profile.setUUID(user.getUUID());
 
-    Account seedAccount = createNewAccountByChoice(user.getUUID());
+    String customerID = generateCustomerId();
+    Account seedAccount = createNewAccountByChoice(user.getUUID(), customerID);
     profile.setAccountType(seedAccount instanceof SavingsAccount ? "Savings" : "Current");
     profile.setAccountNumber(seedAccount.getAccountNumber());
 
     return profile;
+  }
+
+  private String generateCustomerId() {
+    return "CUST" + System.currentTimeMillis() % 1000000;
   }
 
   private BankAccountRecord createBankRecord(AccountDetails profile, UserCredentials user) {
@@ -84,7 +89,7 @@ public class FirstTimeSetup {
     return record;
   }
 
-  private Account createNewAccountByChoice(String userUUID) {
+  private Account createNewAccountByChoice(String userUUID, String customerID) {
     while (true) {
       System.out.println("\nSelect Account Type:");
       System.out.println("  [1] Savings Account");
@@ -92,10 +97,10 @@ public class FirstTimeSetup {
       int choice = readMenuChoice("Please enter (1 / 2): ");
 
       if (choice == 1) {
-        return new SavingsAccount(userUUID, 0.0, 2.5);
+        return new SavingsAccount(userUUID, customerID, 0.0, 2.5);
       }
       if (choice == 2) {
-        return new CurrentAccount(userUUID, 0.0);
+        return new CurrentAccount(userUUID, customerID, 0.0);
       }
       System.out.println("Invalid account type. Please enter 1 or 2.");
     }

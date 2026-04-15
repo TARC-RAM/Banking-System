@@ -74,4 +74,48 @@ public class FileManager {
       System.out.println("An error occured while writing to the file: " + e.getMessage());
     }
   }
+
+  // Transaction persistence - stores transaction history
+  public ArrayList<Transaction> loadTransactions() {
+    try (FileReader reader = new FileReader("transactions.json")) {
+      Type type = new TypeToken<ArrayList<Transaction>>() {
+      }.getType();
+      ArrayList<Transaction> transactions = gson.fromJson(reader, type);
+      return transactions == null ? new ArrayList<>() : transactions;
+    } catch (IOException e) {
+      return new ArrayList<>();
+    }
+  }
+
+  public void saveTransactions(ArrayList<Transaction> transactions) {
+    String transactionJson = gson.toJson(transactions);
+    try (FileWriter writer = new FileWriter("transactions.json")) {
+      writer.write(transactionJson);
+      System.out.println("Transaction data saved successfully");
+    } catch (IOException e) {
+      System.out.println("An error occured while writing to the file: " + e.getMessage());
+    }
+  }
+
+  // Customer metadata persistence
+  public ArrayList<Customer> loadCustomers() {
+    try (FileReader reader = new FileReader("customers.json")) {
+      Type type = new TypeToken<ArrayList<Customer>>() {
+      }.getType();
+      ArrayList<Customer> customers = gson.fromJson(reader, type);
+      return customers == null ? new ArrayList<>() : customers;
+    } catch (IOException e) {
+      return new ArrayList<>();
+    }
+  }
+
+  public void saveCustomers(ArrayList<Customer> customers) {
+    String customerJson = gson.toJson(customers);
+    try (FileWriter writer = new FileWriter("customers.json")) {
+      writer.write(customerJson);
+      System.out.println("Customer data saved successfully");
+    } catch (IOException e) {
+      System.out.println("An error occured while writing to the file: " + e.getMessage());
+    }
+  }
 }

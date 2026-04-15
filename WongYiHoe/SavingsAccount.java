@@ -1,13 +1,13 @@
 public class SavingsAccount extends Account {
     private double interestRate;
     
-    public SavingsAccount(String customerID, double initialBalance, double interestRate) {
-        super(customerID, initialBalance);
+    public SavingsAccount(String userUUID, String customerID, double initialBalance, double interestRate) {
+        super(userUUID, customerID, initialBalance);
         this.interestRate = interestRate;
     }
 
-    public SavingsAccount(String customerID, String accountNumber, double initialBalance, double interestRate) {
-        super(customerID, accountNumber, initialBalance);
+    public SavingsAccount(String userUUID, String customerID, String accountNumber, double initialBalance, double interestRate) {
+        super(userUUID, customerID, accountNumber, initialBalance);
         this.interestRate = interestRate;
     }
 

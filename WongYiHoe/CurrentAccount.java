@@ -1,11 +1,11 @@
 public class CurrentAccount extends Account {
 
-  public CurrentAccount(String customerID, double initialBalance) {
-    super(customerID, initialBalance);
+  public CurrentAccount(String userUUID, String customerID, double initialBalance) {
+    super(userUUID, customerID, initialBalance);
   }
 
-  public CurrentAccount(String customerID, String accountNumber, double initialBalance) {
-    super(customerID, accountNumber, initialBalance);
+  public CurrentAccount(String userUUID, String customerID, String accountNumber, double initialBalance) {
+    super(userUUID, customerID, accountNumber, initialBalance);
   }
 
   // Overdraft limit is 50% of the current positive balance

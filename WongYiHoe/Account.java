@@ -3,16 +3,18 @@ public abstract class Account {
     
     private String accountNumber;
     private double balance;
+    private String userUUID;
     private String customerID;
     private boolean isFrozen;
 
-    public Account(String customerID, double initialBalance) {
-        this(customerID, "ACC" + (counter++), initialBalance);
+    public Account(String userUUID, String customerID, double initialBalance) {
+        this(userUUID, customerID, "ACC" + (counter++), initialBalance);
     }
 
-    public Account(String customerID, String accountNumber, double initialBalance) {
+    public Account(String userUUID, String customerID, String accountNumber, double initialBalance) {
         syncCounterWith(accountNumber);
         this.accountNumber = accountNumber;
+        this.userUUID = userUUID;
         this.customerID = customerID;
         this.balance = initialBalance;
         this.isFrozen = false;
@@ -25,6 +27,10 @@ public abstract class Account {
 
     public double getBalance() { 
         return balance; }
+
+    public String getUserUUID() {
+        return userUUID;
+    }
 
     public String getCustomerID() { 
         return customerID; }
