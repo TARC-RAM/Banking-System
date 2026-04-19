@@ -1,0 +1,101 @@
+1) 1.0 System Idea (Digital Banking System)
+
+Introduction
+The Digital Banking System is a console-based banking application developed to manage user registration,
+authentication, customer profile setup, bank account creation, daily transactions, and administrative
+monitoring in one integrated platform. The system is designed around a simple but practical digital banking
+workflow where users first create login credentials, then complete their personal profile, and finally access
+their bank accounts through a structured dashboard. By separating user credentials, account profiles, bank
+account records, and transaction history into JSON-based storage files, the system keeps banking data
+organised and persistent across sessions. The overall objective of the system is to provide a secure and
+manageable digital banking environment that supports both customer operations and administrative control.
+
+1.1 User Registration and Authentication
+The User Registration and Authentication module is the entry point of the Digital Banking System. New users
+can create an account from the main menu, where the system validates the username and password before
+storing them in `users.json`. The validation process ensures that both username and password contain only
+letters and digits, do not include whitespace, and satisfy the minimum length requirement. Once the
+registration is successful, a unique UUID is generated for each user so that the user can be linked reliably to
+other banking records.
+
+For existing users, the login module checks the entered username and password against the saved user
+credentials. If the login is valid, the user is forwarded to the account setup or account dashboard flow. The
+system also contains a dedicated administrator login, which redirects the administrator to the admin panel
+instead of the normal customer banking menu. This module ensures that access to the banking system is
+controlled and that customer and administrator functions are separated clearly.
+
+1.2 Customer Profile and Account Setup
+After a successful customer login, the system performs a first-time setup process to create or retrieve the
+customer's banking profile. During the initial setup, the user enters personal information such as name, age,
+date of birth, MyKad number, and gender. This information is stored in `accounts.json` as an account profile
+that is linked to the user UUID. The setup process then allows the customer to choose an account type,
+either Savings Account or Current Account, and automatically generates a new account number in sequence.
+
+The system supports multiple accounts for one user, with a maximum of three bank accounts per customer.
+If the user already has existing profiles, the system shows all linked accounts and allows the user either to
+select one for the current session or create an additional account. For newly created bank accounts, the
+system stores operational banking information in `bank_accounts.json`, including account number, account
+type, balance, frozen status, interest rate, and overdraft-related data. This module ensures that customer
+identity details and banking records are linked properly while still being managed as separate data entities.
+
+1.3 Account Operations and Transaction Management
+The Account Operations module is the core functional part of the Digital Banking System. After selecting an
+account, the user enters an account dashboard where several banking operations are available, including
+deposit funds, withdraw funds, check balance, and run monthly processing. Each operation updates the live
+account object and synchronises the latest account balance and status back into the persistent bank account
+record.
+
+The system supports two account types with different banking behaviour. A Savings Account applies an
+interest rate during the monthly process, allowing the user to earn interest on the current balance. A
+Current Account supports overdraft usage, where the user may withdraw beyond the available positive
+balance up to a calculated overdraft limit. If the Current Account remains negative, the monthly process
+applies a 1% interest charge on the overdraft amount. In addition, frozen accounts cannot perform deposit,
+withdrawal, or monthly processing normally, which reinforces account control and operational restrictions.
+
+Every successful deposit, withdrawal, and monthly balance adjustment is recorded as a transaction in
+`transactions.json`. Each transaction contains a timestamp, transaction type, amount, reference ID, user UUID,
+and account number. This transaction tracking mechanism provides a persistent audit trail for customer
+activity and supports later reporting through the administrator functions.
+
+1.4 Administrative Control and Reporting
+The Administrative Control module is accessed through a dedicated administrator login. This module provides
+advanced management functions that are not available to normal users. The administrator can freeze or
+unfreeze a bank account, set the interest rate for savings accounts, generate a monthly bank statement,
+view full account data, delete accounts, and inspect full transaction history for any selected account.
+
+The monthly statement feature formats banking information into a structured report that includes customer
+name, account number, account type, balance, account status, savings interest rate where applicable, and a
+detailed list of transactions. The statement also summarises total inflows and total outflows for the account.
+Besides report generation, the administrator can also view the complete linked information of an account,
+including bank account record, customer profile, user credentials, and transaction totals. The account
+deletion process is also comprehensive because it removes the selected bank account, related account profile,
+linked transactions, and user credentials if no other bank accounts remain under that user. This module is
+important for monitoring, maintenance, and control of the overall digital banking environment.
+
+1.5 Data Persistence and Interface Design
+The Digital Banking System uses JSON files as its persistence layer to store user credentials, account profiles,
+bank account records, and transaction history. This approach allows the system to preserve data between
+program executions while keeping the implementation lightweight and easy to manage. The `FileManager`
+class handles reading and writing of these files using the Gson library, ensuring that structured Java objects
+can be converted to and from JSON format efficiently.
+
+In terms of interface design, the system uses a terminal-based user interface with centred menus and
+formatted output to improve readability. The main menu, account selection menu, account dashboard, and
+admin panel all follow a consistent navigation style. Input validation is performed throughout the system so
+that invalid menu choices, invalid amounts, and incorrect user details are handled before data is saved. This
+helps maintain basic system reliability and reduces user input errors during operation.
+
+
+2) UML DIAGRAM (this is covered so you can skip this)
+
+3) 3.0 System workflow (this is something I need to do so also skip this)
+
+4) 4.0 Conclusion
+In conclusion, the Digital Banking System provides an organised and functional solution for handling basic
+banking operations in a console-based environment. The system integrates user registration, login,
+customer profile management, bank account creation, transaction processing, monthly account handling,
+administrative control, and reporting into one coherent application. By supporting both savings and current
+account behaviour, maintaining transaction history, and allowing administrative monitoring of account data,
+the system reflects the essential structure of a small-scale digital banking platform. Overall, the project
+demonstrates how core banking services can be implemented using object-oriented programming, persistent
+file storage, and role-based access within a practical Java application.

@@ -14,8 +14,16 @@ public class Register {
   private String username;
   private String password;
   ArrayList<UserCredentials> users = new ArrayList<>();
-  Scanner scanner = new Scanner(System.in);
+  Scanner scanner;
   FileManager fm = new FileManager();
+
+  public Register() {
+    this(new Scanner(System.in));
+  }
+
+  public Register(Scanner scanner) {
+    this.scanner = scanner;
+  }
 
   public void collectInput() {
     UserCredentials cred = new UserCredentials();
@@ -24,14 +32,14 @@ public class Register {
 
     // Loop until valid username
     while (true) {
-      System.out.print("Enter your username: ");
+      System.out.print(TerminalUI.menuPrompt("Enter your username: "));
       username = scanner.nextLine();
       if (rv.hasSpecialChars(username) == false || rv.hasWhiteSpace(username) == false) {
-        System.out.println("Username must be 'A-Z' and '0-9' only.");
+        TerminalUI.printCentered("Username must be 'A-Z' and '0-9' only.");
       } else if (rv.meetsMinLength(username) == false) {
-        System.out.println("Username must be more than 8 characters.");
+        TerminalUI.printCentered("Username must be more than 8 characters.");
       } else if (isDuplicateUsername(username) == true) {
-        System.out.println("User already exists.");
+        TerminalUI.printCentered("User already exists.");
       } else {
         cred.setUsername(username);
         break;
@@ -40,12 +48,12 @@ public class Register {
 
     // Loop until valid password
     while (true) {
-      System.out.print("Enter your password: ");
+      System.out.print(TerminalUI.menuPrompt("Enter your password: "));
       password = scanner.nextLine();
       if (rv.hasSpecialChars(password) == false || rv.hasWhiteSpace(password) == false) {
-        System.out.println("Password must be 'A-Z' and '0-9' only.");
+        TerminalUI.printCentered("Password must be 'A-Z' and '0-9' only.");
       } else if (rv.meetsMinLength(password) == false) {
-        System.out.println("Password must be more than 8 characters.");
+        TerminalUI.printCentered("Password must be more than 8 characters.");
       } else {
         cred.setPassword(password);
         break;
@@ -57,7 +65,7 @@ public class Register {
     cred.setUUID(uuid);
     users.add(cred);
     fm.saveUsers(users);
-    System.out.println("Registration successful!");
+    TerminalUI.printCentered("Registration successful!");
   }
 
   public boolean isDuplicateUsername(String input) {

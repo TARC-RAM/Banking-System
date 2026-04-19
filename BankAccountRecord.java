@@ -7,6 +7,7 @@ public class BankAccountRecord {
   private double balance;
   private double interestRate;
   private double overdraftLimit;
+  private boolean frozen;
 
   public String getUserUUID() {
     return userUUID;
@@ -70,5 +71,13 @@ public class BankAccountRecord {
 
   public void setOverdraftLimit(double overdraftLimit) {
     this.overdraftLimit = overdraftLimit;
+  }
+
+  public boolean isFrozen() {
+    return frozen;
+  }
+
+  public void setFrozen(boolean frozen) {
+    this.frozen = frozen;
   }
 }

@@ -1,0 +1,4 @@
+ADMIN module update:
+- Added DELETE CRUD operation in Admin Panel (Option 5: Delete Account).
+- Deletion now removes linked bank account data, linked profile, and linked transactions.
+- User credentials are removed only when no other bank account is linked to that user.

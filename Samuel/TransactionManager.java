@@ -7,7 +7,7 @@ public class TransactionManager {
     // Logic for Deposit
     public void executeDeposit(Account account, double amount) {
         if (amount <= 0) {
-            System.out.println("Invalid amount. Deposit must be greater than 0.");
+            TerminalUI.printCentered("Invalid amount. Deposit must be greater than 0.");
             return;
         }
         
@@ -32,7 +32,7 @@ public class TransactionManager {
     // Logic for Transfer between two accounts
     public void executeTransfer(Account source, Account destination, double amount) {
         if (source.getIsFrozen()) {
-            System.out.println("Transfer Failed: Source account is frozen.");
+            TerminalUI.printCentered("Transfer Failed: Source account is frozen.");
             return;
         }
 
@@ -43,9 +43,9 @@ public class TransactionManager {
             Transaction t = new Transaction("Transfer to " + destination.getAccountNumber(), amount, ref,
                     source.getUserUUID(), source.getAccountNumber());
             transactionHistory.add(t);
-            System.out.println("Transfer of RM " + amount + " to " + destination.getAccountNumber() + " successful.");
+            TerminalUI.printCentered("Transfer of RM " + amount + " to " + destination.getAccountNumber() + " successful.");
         } else {
-            System.out.println("Transfer Failed: Source account has insufficient funds.");
+            TerminalUI.printCentered("Transfer Failed: Source account has insufficient funds.");
         }
     }
 
@@ -54,9 +54,11 @@ public class TransactionManager {
     }
 
     public void printHistory() {
-        System.out.println("\n--- Transaction History ---");
+        TerminalUI.printCentered("╔════════════════════════════════════════════╗");
+        TerminalUI.printCentered("║            TRANSACTION HISTORY             ║");
+        TerminalUI.printCentered("╚════════════════════════════════════════════╝");
         for (Transaction t : transactionHistory) {
-            System.out.println(t.toString());
+            TerminalUI.printCentered(t.toString());
         }
     }
 }

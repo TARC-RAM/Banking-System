@@ -4,21 +4,22 @@ public class MainMenu {
   static Scanner scnr = new Scanner(System.in);
 
   public static int dashboard() {
-    System.out.println("\n╔════════════════════════════════════════════╗");
-    System.out.println("║            TAR DIGITAL BANKING             ║");
-    System.out.println("╠════════════════════════════════════════════╣");
-    System.out.println("║  [1] Create an account                     ║");
-    System.out.println("║  [2] Login                                 ║");
-    System.out.println("║  [0] Exit                                  ║");
-    System.out.println("╚════════════════════════════════════════════╝");
+    TerminalUI.clearScreen();
+    TerminalUI.printCentered("╔════════════════════════════════════════════╗");
+    TerminalUI.printCentered("║            TAR DIGITAL BANKING             ║");
+    TerminalUI.printCentered("╠════════════════════════════════════════════╣");
+    TerminalUI.printCentered("║  [1] Create an account                     ║");
+    TerminalUI.printCentered("║  [2] Login                                 ║");
+    TerminalUI.printCentered("║  [0] Exit                                  ║");
+    TerminalUI.printCentered("╚════════════════════════════════════════════╝");
 
     while (true) {
-      System.out.print("Please enter your option: ");
+      System.out.print(TerminalUI.menuPrompt("Please enter your option: "));
       String input = scnr.nextLine().trim();
       try {
         return Integer.parseInt(input);
       } catch (NumberFormatException e) {
-        System.out.println("Invalid input. Please enter a number.");
+        TerminalUI.printCentered("Invalid input. Please enter a number.");
       }
     }
   }
@@ -28,16 +29,17 @@ public class MainMenu {
       int action = MainMenu.dashboard();
 
       if (action == 1) {
-        Register reg = new Register();
+        Register reg = new Register(scnr);
         reg.collectInput();
       } else if (action == 2) {
-        Login log = new Login();
+        Login log = new Login(scnr);
         log.loginLoop();
       } else if (action == 0) {
-        System.out.println("Goodbye!");
+        TerminalUI.printCentered("Goodbye!");
         break;
       } else {
-        System.out.println("Invalid option. Please choose 1, 2, or 0.");
+        TerminalUI.printCentered("Invalid option. Please choose 1, 2, or 0.");
+        TerminalUI.pauseForEnter(scnr);
       }
     }
   }

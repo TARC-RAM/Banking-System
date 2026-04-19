@@ -2,7 +2,7 @@ public class SavingsAccount extends Account {
     private double interestRate;
     
     public SavingsAccount(String userUUID, String customerID, double initialBalance, double interestRate) {
-        super(userUUID, customerID, initialBalance);
+        super(userUUID, customerID, initialBalance, "SA");
         this.interestRate = interestRate;
     }
 
@@ -22,13 +22,13 @@ public class SavingsAccount extends Account {
     public void performMonthlyProcess() {
 
         if (getIsFrozen()) {
-            System.out.println("Monthly Process Failed: Account is frozen.");
+            TerminalUI.printCentered("Monthly Process Failed: Account is frozen.");
             return;
         }
         else {
             double interest = getBalance() * (interestRate / 100);
             setBalance(getBalance() + interest);
-            System.out.println("Monthly Process: Interest added RM " + interest);
+            TerminalUI.printCentered("Monthly Process: Interest added RM " + interest);
         }
     }
 }

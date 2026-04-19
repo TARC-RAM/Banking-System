@@ -1,24 +1,26 @@
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import java.io.FileWriter; //Write the json file
 import java.io.FileReader; //Read the Json File
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.ArrayList;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
-import java.io.File; // Import the File class
-import java.io.FileNotFoundException; // Import this class to handle errors
 
 public class FileManager {
-  Gson gson = new Gson();
+  Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
   public ArrayList<UserCredentials> loaduser() {
     try (FileReader reader = new FileReader("users.json")) {
       Type type = new TypeToken<ArrayList<UserCredentials>>() {
       }.getType();
-      return gson.fromJson(reader, type);
+      ArrayList<UserCredentials> users = gson.fromJson(reader, type);
+      return users == null ? new ArrayList<>() : users;
+    } catch (JsonSyntaxException e) {
+      TerminalUI.printCentered("users.json is malformed. Please fix the file.");
     } catch (IOException e) {
-      System.out.println("An error has occured");
+      TerminalUI.printCentered("An error has occurred.");
     }
     return new ArrayList<>();
   }
@@ -27,9 +29,9 @@ public class FileManager {
     String credJson = gson.toJson(users);
     try (FileWriter writer = new FileWriter("users.json")) {
       writer.write(credJson);
-      System.out.println("User registered successfully");
+      TerminalUI.printCentered("User registered successfully");
     } catch (IOException e) {
-      System.out.println("An error occured while writing to the file: " + e.getMessage());
+      TerminalUI.printCentered("An error occurred while writing to users.json: " + e.getMessage());
     }
   }
 
@@ -37,9 +39,12 @@ public class FileManager {
     try (FileReader reader = new FileReader("accounts.json")) {
       Type type = new TypeToken<ArrayList<AccountDetails>>() {
       }.getType();
-      return gson.fromJson(reader, type);
+      ArrayList<AccountDetails> accounts = gson.fromJson(reader, type);
+      return accounts == null ? new ArrayList<>() : accounts;
+    } catch (JsonSyntaxException e) {
+      TerminalUI.printCentered("accounts.json is malformed. Please fix the file.");
     } catch (IOException e) {
-      System.out.println("An error has occured");
+      TerminalUI.printCentered("An error has occurred.");
     }
     return new ArrayList<>();
   }
@@ -48,9 +53,9 @@ public class FileManager {
     String credJson = gson.toJson(users);
     try (FileWriter writer = new FileWriter("accounts.json")) {
       writer.write(credJson);
-      System.out.println("Account registered successfully");
+      TerminalUI.printCentered("Account registered successfully");
     } catch (IOException e) {
-      System.out.println("An error occured while writing to the file: " + e.getMessage());
+      TerminalUI.printCentered("An error occurred while writing to accounts.json: " + e.getMessage());
     }
   }
 
@@ -60,6 +65,9 @@ public class FileManager {
       }.getType();
       ArrayList<BankAccountRecord> records = gson.fromJson(reader, type);
       return records == null ? new ArrayList<>() : records;
+    } catch (JsonSyntaxException e) {
+      TerminalUI.printCentered("bank_accounts.json is malformed. Please fix the file.");
+      return new ArrayList<>();
     } catch (IOException e) {
       return new ArrayList<>();
     }
@@ -69,9 +77,9 @@ public class FileManager {
     String accountJson = gson.toJson(accounts);
     try (FileWriter writer = new FileWriter("bank_accounts.json")) {
       writer.write(accountJson);
-      System.out.println("Bank account data saved successfully");
+      TerminalUI.printCentered("Bank account data saved successfully");
     } catch (IOException e) {
-      System.out.println("An error occured while writing to the file: " + e.getMessage());
+      TerminalUI.printCentered("An error occurred while writing to bank_accounts.json: " + e.getMessage());
     }
   }
 
@@ -82,6 +90,9 @@ public class FileManager {
       }.getType();
       ArrayList<Transaction> transactions = gson.fromJson(reader, type);
       return transactions == null ? new ArrayList<>() : transactions;
+    } catch (JsonSyntaxException e) {
+      TerminalUI.printCentered("transactions.json is malformed. Please fix the file.");
+      return new ArrayList<>();
     } catch (IOException e) {
       return new ArrayList<>();
     }
@@ -91,9 +102,9 @@ public class FileManager {
     String transactionJson = gson.toJson(transactions);
     try (FileWriter writer = new FileWriter("transactions.json")) {
       writer.write(transactionJson);
-      System.out.println("Transaction data saved successfully");
+      TerminalUI.printCentered("Transaction data saved successfully");
     } catch (IOException e) {
-      System.out.println("An error occured while writing to the file: " + e.getMessage());
+      TerminalUI.printCentered("An error occurred while writing to transactions.json: " + e.getMessage());
     }
   }
 
@@ -104,6 +115,9 @@ public class FileManager {
       }.getType();
       ArrayList<Customer> customers = gson.fromJson(reader, type);
       return customers == null ? new ArrayList<>() : customers;
+    } catch (JsonSyntaxException e) {
+      TerminalUI.printCentered("customers.json is malformed. Please fix the file.");
+      return new ArrayList<>();
     } catch (IOException e) {
       return new ArrayList<>();
     }
@@ -113,9 +127,9 @@ public class FileManager {
     String customerJson = gson.toJson(customers);
     try (FileWriter writer = new FileWriter("customers.json")) {
       writer.write(customerJson);
-      System.out.println("Customer data saved successfully");
+      TerminalUI.printCentered("Customer data saved successfully");
     } catch (IOException e) {
-      System.out.println("An error occured while writing to the file: " + e.getMessage());
+      TerminalUI.printCentered("An error occurred while writing to customers.json: " + e.getMessage());
     }
   }
 }

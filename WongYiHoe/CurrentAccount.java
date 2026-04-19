@@ -1,7 +1,7 @@
 public class CurrentAccount extends Account {
 
   public CurrentAccount(String userUUID, String customerID, double initialBalance) {
-    super(userUUID, customerID, initialBalance);
+    super(userUUID, customerID, initialBalance, "CA");
   }
 
   public CurrentAccount(String userUUID, String customerID, String accountNumber, double initialBalance) {
@@ -20,7 +20,7 @@ public class CurrentAccount extends Account {
   @Override
   public void performMonthlyProcess() {
     if (getIsFrozen()) {
-      System.out.println("Monthly Process Failed: Account is frozen.");
+      TerminalUI.printCentered("Monthly Process Failed: Account is frozen.");
       return;
     }
 
@@ -28,17 +28,17 @@ public class CurrentAccount extends Account {
       double interestCharge = Math.abs(getBalance()) * 0.01;
       setBalance(getBalance() - interestCharge);
 
-      System.out.printf("Monthly Interest Charge (1%%): -RM %.2f\n", interestCharge);
-      System.out.printf("Warning: Account in overdraft. New Debt: RM %.2f\n", Math.abs(getBalance()));
+      TerminalUI.printCentered(String.format("Monthly Interest Charge (1%%): -RM %.2f", interestCharge));
+      TerminalUI.printCentered(String.format("Warning: Account in overdraft. New Debt: RM %.2f", Math.abs(getBalance())));
     } else {
-      System.out.println("❖ Monthly Process: Current Account status healthy.");
+      TerminalUI.printCentered("Monthly Process: Current Account status healthy.");
     }
   }
 
   @Override
   public boolean withdraw(double amount) {
     if (getIsFrozen()) {
-      System.out.println("Withdraw Failed: Account is frozen.");
+      TerminalUI.printCentered("Withdraw Failed: Account is frozen.");
       return false;
     }
 
@@ -48,15 +48,15 @@ public class CurrentAccount extends Account {
 
     if (amount <= availableFunds) {
       setBalance(getBalance() - amount);
-      System.out.println("Withdraw Successful\t: RM " + amount);
+      TerminalUI.printCentered("Withdraw Successful: RM " + amount);
 
       if (getBalance() < 0) {
-        System.out.printf("Warning !: Using Overdraft\t: RM %.2f\n", Math.abs(getBalance()));
+        TerminalUI.printCentered(String.format("Warning: Using Overdraft: RM %.2f", Math.abs(getBalance())));
       }
       return true;
     } else {
-      System.out.println("Withdraw Failed: Exceeds overdraft limit.");
-      System.out.printf("Maximum amount available to withdraw is\t: RM %.2f\n", availableFunds);
+      TerminalUI.printCentered("Withdraw Failed: Exceeds overdraft limit.");
+      TerminalUI.printCentered(String.format("Maximum amount available to withdraw is: RM %.2f", availableFunds));
       return false;
     }
   }

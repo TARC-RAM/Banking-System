@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 set -e
 
-javac -cp gson-2.11.0.jar:. *.java WongYiHoe/*.java Samuel/*.java Eugene/*.java
-java -cp gson-2.11.0.jar:.:WongYiHoe:Samuel:Eugene MainMenu
+javac -cp gson-2.11.0.jar:. *.java WongYiHoe/*.java Samuel/*.java Eugene/*.java WongJunHoe/*.java
+java -cp gson-2.11.0.jar:.:WongYiHoe:Samuel:Eugene:WongJunHoe MainMenu

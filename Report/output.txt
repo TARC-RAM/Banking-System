@@ -1,0 +1,99 @@
+Student Task Description
+
+1. Ram
+Modules handled:
+- Registration flow
+- Login system
+- Main menu routing
+- File I/O for saving and loading data
+
+Description:
+Ram was responsible for the core entry flow of the Digital Banking System. This includes the main menu in
+`MainMenu.java`, where users can choose to register, log in, or exit the system. He also handled the user
+registration process in `Register.java` together with input validation in `RegisterValidation.java`, ensuring
+that usernames and passwords follow the required format before being saved. In addition, he implemented
+the login process in `Login.java`, including both customer login and administrator access.
+
+Besides authentication, Ram also contributed to the system's data persistence through `FileManager.java`,
+which loads and saves user credentials, account profiles, bank account records, customer data, and
+transaction history using JSON files. His work forms the foundation of the system because it manages how
+users enter the application and how data is stored permanently across sessions. He also contributed to the
+customer account setup flow through `FirstTimeSetup.java`, where user profiles are created and linked to
+bank accounts after login.
+
+2. Wong Yi Hoe
+Modules handled:
+- Account class
+- Savings account class
+- Current account class
+- Account number generation
+
+Description:
+Wong Yi Hoe was responsible for the banking account model of the system. He developed the abstract
+`Account` class in `WongYiHoe/Account.java`, which provides the shared structure and behaviour for all bank
+accounts, such as account number handling, balance storage, deposit, withdrawal, frozen account control,
+and monthly processing definitions. This class acts as the parent class for the account types used in the
+project.
+
+He also implemented the `SavingsAccount` class in `WongYiHoe/SavingsAccount.java`, which supports
+interest-based monthly processing, and the `CurrentAccount` class in `WongYiHoe/CurrentAccount.java`,
+which supports overdraft withdrawal and applies charges when the balance becomes negative. In addition,
+his work includes the logic for generating and synchronising account numbers, which is essential for creating
+unique accounts and maintaining consistency in stored account records. His contribution defines the core
+banking behaviour for customer accounts.
+
+3. Wong Jun Hoe
+Modules handled:
+- Admin class
+- Approve or freeze accounts
+- Set interest rates
+- Transaction history display
+- Monthly statements
+
+Description:
+Wong Jun Hoe was responsible for the administrative features of the Digital Banking System. He developed
+the admin panel in `WongJunHoe/AdminMenu.java`, which allows the administrator to manage customer bank
+accounts after logging in with admin credentials. Through this module, the administrator can freeze or
+unfreeze accounts, adjust savings account interest rates, view complete account information, inspect full
+transaction history, generate monthly statements, and delete bank accounts when required.
+
+He also implemented the reporting functionality in `WongJunHoe/ReportManager.java`. This module formats
+account details and transaction records into a monthly bank statement that includes customer information,
+account status, balance, interest rate where applicable, and a summary of inflows and outflows. His work is
+important for administrative monitoring, account control, and report generation, making the system more
+complete from a management perspective.
+
+4. Samuel
+Modules handled:
+- Transaction class
+- Deposit, withdraw, and transfer logic
+- Balance validation
+
+Description:
+Samuel was responsible for the transaction component of the system. He developed the `Transaction` class
+in `Samuel/Transaction.java`, which stores transaction details such as timestamp, transaction type, amount,
+reference ID, user UUID, and account number. This class is used to represent the financial records generated
+during customer account activity.
+
+He also implemented the `TransactionManager` class in `Samuel/TransactionManager.java`, which contains
+the logic for deposit, withdrawal, and transfer operations. This includes validating amounts, checking account
+status, ensuring sufficient balance or overdraft support, and recording successful transactions. His work
+contributes directly to the financial operation layer of the application by defining how money-related actions
+are processed and recorded.
+
+5. Eugene
+Modules handled:
+- Customer class
+- Customer ID generation
+- Methods to link accounts to customer
+
+Description:
+Eugene was responsible for the customer data model of the system. He developed the `Customer` class in
+`Eugene/Customer.java`, which stores customer-level information such as customer ID, user UUID, name,
+email, phone number, and the list of linked account numbers. He also implemented the logic for generating
+customer IDs and for associating multiple bank accounts with a single customer record.
+
+This contribution supports the customer management structure of the project by providing a separate
+customer entity that can be linked to user and account data. Although this module is more focused on the
+data model side, it is important because it represents how customer information can be organised and
+expanded in a digital banking environment.
